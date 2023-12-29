@@ -1,0 +1,28 @@
+import socket
+
+# Configuración del servidor
+host = 'tu_direccion_ip'  # Debe ser la IP de tu máquina o 'localhost'
+port = 5555  # Puerto arbitrario
+
+# Crear un socket TCP/IP
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+# Enlazar el socket al puerto y dirección
+server_socket.bind((host, port))
+
+# Escuchar conexiones entrantes (máximo 1)
+server_socket.listen(1)
+
+print(f"Servidor escuchando en {host}:{port}")
+
+# Aceptar la conexión
+client_socket, client_address = server_socket.accept()
+
+print(f"Conexión establecida desde {client_address}")
+
+# Recibir datos desde el cliente
+data = client_socket.recv(1024)
+print(f"Datos recibidos del cliente: {data.decode()}")
+
+# Cerrar la conexión con el cliente
+client_socket.close()
